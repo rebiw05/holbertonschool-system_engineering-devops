@@ -1,0 +1,38 @@
+# 0. Simple Web Stack
+
+## Infrastructure Overview
+
+A simple web infrastructure using a single server to host a website accessible at `www.foobar.com`.
+
+## Components
+
+- **Domain Name**: `foobar.com` with a `www` A record pointing to `8.8.8.8`
+- **1 Server** (IP: 8.8.8.8)
+  - **Web Server**: Nginx
+  - **Application Server**: Handles dynamic requests
+  - **Application Files**: Codebase for website logic
+  - **Database**: MySQL to store persistent data
+
+## Request Flow
+
+1. User requests `www.foobar.com`
+2. DNS resolves `www` A record to `8.8.8.8`
+3. Browser sends HTTP request to server
+4. Nginx handles request, passes to app server
+5. App server fetches/stores data in MySQL
+6. Response sent back to client
+
+## Roles
+
+- **Domain Name**: Maps a human-readable name to an IP
+- **A Record (www)**: DNS entry pointing to the server
+- **Web Server**: Handles HTTP requests and static content
+- **App Server**: Runs application logic
+- **Database**: Stores and retrieves data
+- **Communication**: HTTP over TCP/IP
+
+## Limitations
+
+- **SPOF**: One server = one point of failure
+- **Maintenance Downtime**: No redundancy during updates
+- **No Scalability**: Can't handle high traffic
