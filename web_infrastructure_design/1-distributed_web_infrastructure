@@ -1,0 +1,40 @@
+# 1. Distributed Web Infrastructure
+
+This design describes a distributed infrastructure for hosting the website `www.foobar.com`.
+
+## Architecture Overview
+
+- **Domain Name**: `foobar.com` with `www` subdomain pointing to the Load Balancer IP
+- **Load Balancer**: HAProxy
+  - Uses **Round Robin** algorithm
+  - Distributes requests between two servers
+- **2 Servers**:
+  - Nginx (Web Server)
+  - Application Server (PHP, Node.js, etc.)
+  - Application Files
+  - MySQL Database (Primary/Replica cluster)
+
+## Load Balancer Configuration
+
+- **Algorithm**: Round Robin
+- **Setup**: Active-Active
+  - Both servers serve traffic concurrently
+  - Better performance and uptime
+
+## Database Cluster
+
+- **Primary Node (Server 1)**: Handles all **write** operations
+- **Replica Node (Server 2)**: Handles **read** operations
+- Replication keeps the Replica updated with the Primary
+
+## Issues
+
+### Single Point of Failure
+- The Load Balancer is not redundant
+
+### Security
+- No HTTPS (unencrypted traffic)
+- No firewall (open ports and services exposed)
+
+### Monitoring
+- No system health checks or alerts in place
