@@ -1,0 +1,12 @@
+# 3. Scale Up
+
+## Objective
+
+Design a scalable web infrastructure that:
+- Separates web, application, and database components
+- Uses a cluster of load balancers
+- Clearly distinguishes between a web server and an application server
+
+---
+
+## Infrastructure Overview
