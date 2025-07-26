@@ -1,0 +1,47 @@
+# 2. Secured and Monitored Web Infrastructure
+
+## Overview
+
+A secure and monitored infrastructure that hosts `www.foobar.com` using:
+- 1 Load Balancer
+- 3 Backend Servers
+- SSL encryption
+- Firewalls and monitoring
+
+## Components
+
+- **Domain Name**: www.foobar.com  points to Load Balancer IP
+- **Load Balancer**: SSL termination and request distribution
+- **3 Servers**:
+  - Web server (Nginx)
+  - App server
+  - Application code base
+  - MySQL DB (1 Primary, 2 Read Replicas)
+  - Monitoring agent (e.g., SumoLogic client)
+  - Each protected by a dedicated firewall
+
+## Security Features
+
+- **Firewalls**: Only allow necessary traffic
+- **SSL Certificate**: Enables HTTPS for encrypted traffic
+- **Monitoring Agents**: Collect server metrics and logs
+
+## Monitoring
+
+- Agents send logs/metrics to tools like SumoLogic
+- Data includes CPU, RAM, network, app logs, etc.
+- Web server QPS monitored by exposing Nginx metrics
+
+## Known Issues
+
+### SSL Termination at Load Balancer
+- If decrypted at the LB, traffic between LB and backend is plaintext
+- Solution: Use TLS re-encryption from LB to backend
+
+### Single MySQL Writer
+- Only one DB handles writes risk of downtime
+- Solution: DB failover or multi-master
+
+### All Servers Have All Roles
+- Mixing DB, web, and app roles causes resource competition and poor scalability
+- Solution: Use dedicated servers for each role
